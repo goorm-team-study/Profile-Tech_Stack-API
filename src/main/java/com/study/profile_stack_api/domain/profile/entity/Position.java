@@ -1,4 +1,4 @@
-package com.study.profile_stack_api.domain.pofile.entity;
+package com.study.profile_stack_api.domain.profile.entity;
 
 //직무
 public enum Position {

@@ -1,4 +1,4 @@
-package com.study.profile_stack_api.domain.pofile.entity;
+package com.study.profile_stack_api.domain.profile.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
