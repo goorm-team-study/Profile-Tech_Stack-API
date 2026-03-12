@@ -14,7 +14,7 @@ public class ProfileResponse {
     private String email;               // 이메일
     private String bio;                 // 자기소개
     private String position;            // 포지션
-    private String positionIcon;       // 포지션 아이콘`
+    private String positionIcon;        // 포지션 아이콘`
     private Integer careerYears;        // 경력 연차
     private String githubUrl;           // GitHub 주소
     private String blogUrl;             // 블로그 주소

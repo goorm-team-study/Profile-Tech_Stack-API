@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+//DB 데이터 구조
+
 @Getter
 @Setter
 @NoArgsConstructor
