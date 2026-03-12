@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum TechCategory {
+public enum Category {
     // 인스턴스
     LANGUAGE("프로그래밍 언어", "📝"),
     FRAMEWORK("프레임워크", "🏗️"),

@@ -16,7 +16,9 @@ public class TechStackResponse {
     private Long profileId;             // 프로필 ID (FK)
     private String name;                // 이름
     private String category;            // 기술 카테고리
+    private String categoryIcon;    // 기술 카테고리 아이콘
     private String proficiency;         // 숙련도
+    private String proficiencyIcon;     // 숙련도 아이콘
     private Integer yearsOfExp;         // 사용 경험 (년)
     private LocalDateTime createdAt;    // 생성 일시
     private LocalDateTime updatedAt;    // 수정 일시
@@ -29,8 +31,10 @@ public class TechStackResponse {
         techStackResponse.id = techStack.getId();
         techStackResponse.profileId = techStack.getProfileId();
         techStackResponse.name = techStack.getName();
-        techStackResponse.category = techStack.getCategory();
-        techStackResponse.proficiency = techStack.getProficiency();
+        techStackResponse.category = techStack.getCategory().getDescription();
+        techStackResponse.categoryIcon = techStack.getCategory().getIcon();
+        techStackResponse.proficiency = techStack.getProficiency().getDescription();
+        techStackResponse.proficiencyIcon = techStack.getProficiency().getIcon();
         techStackResponse.yearsOfExp = techStack.getYearsOfExp();
         techStackResponse.createdAt = techStack.getCreatedAt();
         techStackResponse.updatedAt = techStack.getUpdatedAt();

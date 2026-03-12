@@ -12,7 +12,7 @@ public enum Proficiency {
     ADVANCED("고급", "🌳"),
     EXPERT("전문가", "🏆");
 
-    //필드
+    // 필드
     private final String description;
     private final String icon;
 }
