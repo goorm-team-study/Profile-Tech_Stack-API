@@ -1,6 +1,7 @@
 package com.study.profile_stack_api.domain.techstack.service;
 
 import com.study.profile_stack_api.domain.techstack.dto.request.TechStackCreateRequest;
+import com.study.profile_stack_api.domain.techstack.dto.request.TechStackUpdateRequest;
 import com.study.profile_stack_api.domain.techstack.entity.Category;
 import com.study.profile_stack_api.domain.techstack.entity.Proficiency;
 import com.study.profile_stack_api.domain.techstack.entity.TechStack;
@@ -56,7 +57,7 @@ public class TechStackService {
 
     // (기술 스택 수정)
     @Transactional // UPDATE
-    public TechStack update(Long id, TechStackCreateRequest request) {
+    public TechStack update(Long id, TechStackUpdateRequest request) {
         TechStack techStack = findById(id);
         // Dirty Checking
         if (request.getName() != null)
