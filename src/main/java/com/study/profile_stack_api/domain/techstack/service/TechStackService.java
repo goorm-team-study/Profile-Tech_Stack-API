@@ -21,6 +21,7 @@ import java.util.List;
 public class TechStackService {
     private final TechStackRepository techStackRepository;
 
+    // (기술 스택 추가)
     @Transactional // 데이터를 변경하는 작업에 필요(INSERT)
     public TechStack create(TechStackCreateRequest request) {
         TechStack techStack = TechStack.builder()
@@ -30,25 +31,30 @@ public class TechStackService {
                 .build();
         return techStackRepository.save(techStack);
     }
-    // SELECT
-    public List<TechStack> findAll() {
-        return techStackRepository.findAll();
-    }
 
-    // SELECT
+    // SELECT(기술 스택 단건 조회)
     public TechStack findById(Long id) {
         return techStackRepository.findById(id)
                 .orElseThrow(() -> new TechStackNotFoundException(id));
     }
+
+    // SELECT(기술 스택 목록 조회)
+    public List<TechStack> findAll() {
+        return techStackRepository.findAll();
+    }
+
     // *카테고리 조회
     public List<TechStack> findByCategory(Category category) {
+
         return techStackRepository.findByCategory(category);
     }
+
     // *숙련도 조회
     public List<TechStack> findByProficiency(Proficiency proficiency) {
         return techStackRepository.findByProficiency(proficiency);
     }
 
+    // (기술 스택 수정)
     @Transactional // UPDATE
     public TechStack update(Long id, TechStackCreateRequest request) {
         TechStack techStack = findById(id);
@@ -65,6 +71,7 @@ public class TechStackService {
         return techStack;
     }
 
+    // (기술 스택 삭제)
     @Transactional // DELETE
     public void delete(Long id) {
         if(!techStackRepository.existByName(String.valueOf(id))){
