@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -59,7 +60,7 @@ public class TechStackController {
             @AuthenticationPrincipal CustomUserDetails userDetails
             ) {
         TechStackResponse response = service.createTechStack(profileId, userDetails.getMemberId(), request);
-        return ResponseEntity.ok().body(ApiResponse.success(response));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(response));
     }
 
     // PUT
