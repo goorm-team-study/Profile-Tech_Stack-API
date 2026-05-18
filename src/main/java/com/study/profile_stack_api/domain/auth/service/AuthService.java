@@ -83,9 +83,10 @@ public class AuthService {
                     )
             );
 
-            // 2. 인증 성공 → DB에서 사용자 정보 조회
-            Member member = memberDao.findByUsername(request.getUsername())
-                        .orElseThrow(AuthException::new);
+            // 2. 인증 성공 → principal에서 사용자 정보 추출 (DB 재조회 없음)
+            CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
+            Long memberId = principal.getMemberId();
+            String username = principal.getUsername();
 
             // 3. 권한 정보 추출
             String roles = authentication.getAuthorities().stream()
@@ -93,19 +94,19 @@ public class AuthService {
                     .collect(Collectors.joining(","));
 
             // 4. Access Token + Refresh Token 생성
-            String accessToken = jwtTokenProvider.generateAccessToken(member.getId(), member.getUsername(), roles);
-            String refreshToken = jwtTokenProvider.generateRefreshToken(member.getUsername());
+            String accessToken = jwtTokenProvider.generateAccessToken(memberId, username, roles);
+            String refreshToken = jwtTokenProvider.generateRefreshToken(username);
 
             // 5. Refresh Token을 DB에 저장 (재로그인 시 기존 토큰 교체)
             LocalDateTime expiredDate = jwtTokenProvider.getExpirationFromToken(refreshToken);
             LocalDateTime createdDate = jwtTokenProvider.getCreatedAtFromToken(refreshToken);
-            if (refreshTokenDao.existByMemberId(member.getId())) {
-                refreshTokenDao.deleteByMemberId(member.getId());
+            if (refreshTokenDao.existByMemberId(memberId)) {
+                refreshTokenDao.deleteByMemberId(memberId);
             }
-            RefreshToken token = refreshTokenMapper.toEntity(member, refreshToken, expiredDate, createdDate);
+            RefreshToken token = refreshTokenMapper.toEntity(memberId, refreshToken, expiredDate, createdDate);
             refreshTokenDao.save(token);
 
-            log.info("Login successful for user: {}", member.getUsername());
+            log.info("Login successful for user: {}", username);
 
             return memberMapper.toLoginResponse(accessToken, refreshToken);
 

@@ -4,12 +4,14 @@ import com.study.profile_stack_api.domain.auth.entity.Member;
 import com.study.profile_stack_api.domain.auth.repository.dao.MemberDao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -29,10 +31,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
         log.debug("User found: {}", member.getUsername());
 
-        return User.builder()
-                .username(member.getUsername())
-                .password(member.getPassword())
-                .roles(member.getRole().name())
-                .build();
+        List<SimpleGrantedAuthority> authorities = List.of(
+                new SimpleGrantedAuthority("ROLE_" + member.getRole().name())
+        );
+        return new CustomUserDetails(member.getId(), member.getUsername(), member.getPassword(), authorities);
     }
 }
