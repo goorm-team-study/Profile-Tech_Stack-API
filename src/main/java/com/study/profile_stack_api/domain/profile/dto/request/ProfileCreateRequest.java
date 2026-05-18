@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ProfileCreateRequest {
-    @NotNull(message = "멤버 ID는 필수 입니다.")
-    private Long memberId;
-
     @NotBlank(message = "이름는 필수 입니다.")
     @Size(max = 50, message = "이름은 50자 이하여야 합니다.")
     private String name;

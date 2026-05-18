@@ -31,9 +31,9 @@ public class ProfileService {
 
     // === Create ===
     @Transactional
-    public ProfileResponse createProfile(ProfileCreateRequest request) {
+    public ProfileResponse createProfile(ProfileCreateRequest request, Long memberId) {
         // 1. DTO -> Entity 변환
-        Profile profile = mapper.toEntity(request);
+        Profile profile = mapper.toEntity(request, memberId);
 
         // 2. 레포지토리 저장
         Profile newProfile = repository.save(profile);

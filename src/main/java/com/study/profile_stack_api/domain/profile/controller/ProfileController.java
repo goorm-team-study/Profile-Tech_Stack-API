@@ -54,10 +54,10 @@ public class ProfileController {
     // POST
     @PostMapping
     public ResponseEntity<ApiResponse<ProfileResponse>> createProfile(
-            @RequestBody @Valid ProfileCreateRequest request
-
+            @RequestBody @Valid ProfileCreateRequest request,
+            @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        ProfileResponse response = profileService.createProfile(request);
+        ProfileResponse response = profileService.createProfile(request, userDetails.getMemberId());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success(response));

@@ -16,13 +16,14 @@ public interface ProfileMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
+            @Mapping(target = "memberId", source = "memberId"),
             @Mapping(target = "createdAt", expression = "java(LocalDateTime.now())"),
             @Mapping(target = "updatedAt", expression = "java(LocalDateTime.now())"),
             @Mapping(target = "bio", expression = "java(nullToEmpty(request.getBio()))"),
             @Mapping(target = "githubUrl", expression = "java(nullToEmpty(request.getGithubUrl()))"),
             @Mapping(target = "blogUrl", expression = "java(nullToEmpty(request.getBlogUrl()))")
     })
-    Profile toEntity(ProfileCreateRequest request);
+    Profile toEntity(ProfileCreateRequest request, Long memberId);
 
     // ProfileUpdateRequest -> Profile 업데이트
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
