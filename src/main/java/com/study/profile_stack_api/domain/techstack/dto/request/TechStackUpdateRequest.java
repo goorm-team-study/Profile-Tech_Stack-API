@@ -15,11 +15,11 @@ public class TechStackUpdateRequest {
     @Size(min = 1, max = 50, message = "기술명은 1자 이상, 50자 이하여야 합니다.")
     private String name;            // 기술명 (1 ~ 50자)
 
-    @NotBlankIfPresent(message = "기술명은 빈 값을 가질 수 없습니다.")
+    @NotBlankIfPresent(message = "카테고리는 빈 값을 가질 수 없습니다.")
     @Size(min = 1, max = 20, message = "기술 카테고리는 1자 이상, 20자 이하여야 합니다.")
     private String category;        // 기술 카테고리
 
-    @NotBlankIfPresent(message = "기술명은 빈 값을 가질 수 없습니다.")
+    @NotBlankIfPresent(message = "숙련도는 빈 값을 가질 수 없습니다.")
     @Size(min = 1, max = 20, message = "숙련도는 1자 이상, 20자 이하여야 합니다.")
     private String proficiency;     // 숙련도
 
