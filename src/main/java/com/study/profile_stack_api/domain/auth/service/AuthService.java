@@ -96,9 +96,12 @@ public class AuthService {
             String accessToken = jwtTokenProvider.generateAccessToken(member.getId(), member.getUsername(), roles);
             String refreshToken = jwtTokenProvider.generateRefreshToken(member.getUsername());
 
-            // 5. Refresh Token을 DB에 저장
+            // 5. Refresh Token을 DB에 저장 (재로그인 시 기존 토큰 교체)
             LocalDateTime expiredDate = jwtTokenProvider.getExpirationFromToken(refreshToken);
             LocalDateTime createdDate = jwtTokenProvider.getCreatedAtFromToken(refreshToken);
+            if (refreshTokenDao.existByMemberId(member.getId())) {
+                refreshTokenDao.deleteByMemberId(member.getId());
+            }
             RefreshToken token = refreshTokenMapper.toEntity(member, refreshToken, expiredDate, createdDate);
             refreshTokenDao.save(token);
 
