@@ -23,8 +23,8 @@ public class TechStackUpdateRequest {
     @Size(min = 1, max = 20, message = "숙련도는 1자 이상, 20자 이하여야 합니다.")
     private String proficiency;     // 숙련도
 
-    @Min(value = 1, message = "사용 경험은 1년 이상, 100년 이하여야 합니다.")
-    @Max(value = 100, message = "사용 경험은 1년 이상, 100년 이하여야 합니다.")
+    @Min(value = 0, message = "사용 경험은 0년 이상, 100년 이하여야 합니다.")
+    @Max(value = 100, message = "사용 경험은 0년 이상, 100년 이하여야 합니다.")
     private Integer yearsOfExp;      // 사용 경험(년, 0이상);
 
     public boolean hasNoUpdates() {
