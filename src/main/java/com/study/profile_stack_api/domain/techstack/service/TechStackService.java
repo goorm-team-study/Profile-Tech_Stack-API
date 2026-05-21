@@ -19,6 +19,7 @@ import com.study.profile_stack_api.global.exception.domain.profile.ProfileNotFou
 import com.study.profile_stack_api.global.exception.domain.techstack.TechStackNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class TechStackService {
     private final ProfileDao profileDao;
 
     // === GET ===
+    @Transactional(readOnly = true)
     public TechStackResponse getTechStackById(Long profileId, Long techStackId) {
         if (!profileDao.existsById(profileId)) {
             throw new ProfileNotFoundException(profileId);
@@ -40,6 +42,7 @@ public class TechStackService {
         return mapper.toResponse(techStack);
     }
 
+    @Transactional(readOnly = true)
     public Page<TechStackResponse> getTechStacksWithPage(Integer page, Integer limit, Long profileId, TechCategory category, Proficiency proficiency) {
         // validation
         if (!profileDao.existsById(profileId)) {
